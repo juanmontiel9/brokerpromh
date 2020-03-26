@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Remote Control UI - Prometeus</title>
+    <script src="./app_theme/scripts/vue.min.js"></script>
+    <script src="./app_theme/scripts/Code.js"></script>
+    <link rel="stylesheet" type="text/css" href="./app_theme/css/AppTheme.css" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="./app_theme/css/all.css" rel="stylesheet">
+</head>
+<body>
+
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script type="text/javascript">
+
+        const options = {
+            connectTimeout:4000,
+            clientId:'iotmc9',
+            keepalive:60,
+            clean:true,
+        } 
+
+        const WebSocket_URL = 'ws://35.198.1.82:8083/mqtt'
+
+        const client = mqtt.connect(WebSocket_URL, options);
+
+        client.on('connect', () => { 
+            console.log('Mqtt conectado por ws')
+
+            client.subscribe('prueba', { qos: 0 }, (error) => {
+                if (!error) {
+                    console.log('correcto')
+                }else{
+                    console.log('fallido')
+                }
+            })
+            client.publish('salida','conexion exitosa', (error) => {
+                console.log(error || 'enviado ok')
+            });
+        })
+
+
+        client.on('message', (topic, message) => {
+            console.log('mensaje recibido:', topic, '->', message.toString());
+        })
+
+    </script>
+    <div id="components-remote" class="mainContainer">
+        <div class="cabecera">
+            <h1>Proyecto de Aula</h1>
+            <span>Ingenieria de Sistemas</span>
+            <span>Arquitecttura de Computadores</span>
+        </div>
+        <span class="title">Control Remoto</span>
+        <div class="middle">
+            <div class="remoter">
+                <div class="btn btn-vol-up">
+                    <div class="icon">
+                        <i class="fas fa-angle-double-up"></i>
+                    </div>
+                </div>
+                <div class="btn btn-prev">
+                    <div class="icon">
+                        <i class="fas fa-angle-double-left"></i>
+                    </div>
+                </div>
+                <div class="btn btn-next">
+                    <div class="icon">
+                        <i class="fas fa-angle-double-right"></i>
+                    </div>
+                </div>
+                <div class="btn btn-repeat">
+                    <div class="icon">STOP</div>
+                </div>
+                <div class="btn btn-pause">
+                    <div class="icon"></div>
+                </div>
+                <div class="btn btn-vol-down">
+                    <div class="icon">
+                        <i class="fas fa-angle-double-down"></i>
+                    </div>
+                </div>
+                <label class="vol-label">ON/OFF</label>
+            </div>
+        </div>
+        <!--<button-counter></button-counter>-->
+    </div>
+    <script type="text/javascript">
+        new Vue({ el: '#components-remote' })
+    </script>
+</body>
+</html>

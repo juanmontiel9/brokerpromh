@@ -1,0 +1,32 @@
+{
+  "name": "microserviceright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "reset": "firmata-party uno --debug"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-graphql": "^0.9.0",
+    "firmata-party": "^2.0.0",
+    "graphql": "^14.6.0",
+    "http-errors": "~1.6.3",
+    "jade": "^1.11.0",
+    "johnny-five": "^1.4.0",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.4",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.2"
+  },
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "keywords": [],
+  "author": "Andres Gomez - Prometheus Team",
+  "license": "ISC",
+  "description": "Creacion Microservicio con Express y Nodejs"
+}
